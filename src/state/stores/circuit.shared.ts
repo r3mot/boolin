@@ -22,6 +22,8 @@ function isPositionChange(change: NodeChange<CircuitNode>) {
 export interface CircuitStoreState {
   nodes: CircuitNode[];
   edges: Edge[];
+  generatedId: number;
+  getNextId: () => number;
   setNodes: (nodes: CircuitNode[]) => void;
   setEdges: (edges: Edge[]) => void;
   onConnect: OnConnect;
@@ -35,10 +37,20 @@ export interface CircuitStoreState {
   clearAll: () => void;
 }
 
-export const circuitStoreCreator: StateCreator<CircuitStoreState> = (set) => ({
+export const circuitStoreCreator: StateCreator<CircuitStoreState> = (
+  set,
+  get
+) => ({
   nodes: [],
   edges: [],
+  generatedId: 0,
   reactFlowInstance: undefined,
+
+  getNextId: () => {
+    const id = get().generatedId;
+    set({ generatedId: id + 1 });
+    return id;
+  },
 
   setReactFlowInstance: (rf) => set({ reactFlowInstance: rf }),
   setNodes: (nodes) => {
@@ -153,4 +165,6 @@ export const shallowSelector = (state: CircuitStoreState) => ({
   concatNode: state.concatNode,
   frInstance: state.reactFlowInstance,
   setRfInstance: state.setReactFlowInstance,
+  generatedId: state.generatedId,
+  getNextId: state.getNextId,
 });
