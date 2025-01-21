@@ -1,7 +1,7 @@
 import { type Node } from "@xyflow/react";
 import { CircuitState, NodeType, Operation } from "./enums";
 
-type CircuitNodeInternals = {
+export type CircuitNodeInternals = {
   operation: Operation;
   state: CircuitState;
 };
