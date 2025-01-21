@@ -19,4 +19,6 @@ export const enum Operation {
   And = "and",
   Xor = "xor",
   Nand = "nand",
+  Nor = "nor",
+  Xnor = "xnor",
 }
