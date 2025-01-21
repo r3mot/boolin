@@ -1,0 +1,18 @@
+import { type Node } from "@xyflow/react";
+import { CircuitState, NodeType, Operation } from "./enums";
+
+type CircuitNodeInternals = {
+  operation: Operation;
+  state: CircuitState;
+};
+
+export type InputNode = Node<CircuitNodeInternals, NodeType.Input>;
+export type OutputNode = Node<CircuitNodeInternals, NodeType.Output>;
+export type GateNode = Node<CircuitNodeInternals, NodeType.Gate>;
+export type CircuitNode = InputNode | OutputNode | GateNode;
+
+export type DraggableNodeValue = CircuitNodeInternals & { type: NodeType };
+export type DraggableNode = {
+  name: string;
+  node: DraggableNodeValue;
+};
