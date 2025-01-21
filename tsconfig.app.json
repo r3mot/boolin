@@ -24,7 +24,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Type Checks */
+    "types" : ["vitest/globals","@testing-library/jest-dom",],
   },
-  "include": ["src", "vitest.setup.ts", "__tests__"]
+  "include": ["src", "vitest.setup.ts", "__tests__", "__mocks__"]
 }
