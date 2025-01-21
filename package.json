@@ -16,6 +16,7 @@
     "@xyflow/react": "^12.4.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "lodash.isequal": "^4.5.0",
     "lucide-react": "^0.473.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@testing-library/react": "^16.2.0",
+    "@types/lodash.isequal": "^4.5.8",
     "@types/node": "^22.10.7",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
