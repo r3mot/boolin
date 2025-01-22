@@ -126,7 +126,7 @@ export function isPathToActiveOutput(
   }
 
   const visited = new Set<string>();
-  const stack = [edge.source];
+  const stack = [edge.target];
 
   while (stack.length) {
     const nodeId = stack.pop()!;
@@ -153,13 +153,22 @@ export function applyNodeStates(
   circuit: Record<string, number>
 ) {
   // React Flow expects nodes to be immutable
-  return nodes.map((node) => ({
-    ...node,
-    data: {
-      ...node.data,
-      state: circuit[node.id] ?? node.data.state ?? CircuitState.LOW,
-    },
-  }));
+  return nodes.map((node) => {
+    if (node.data.originalState === undefined) {
+      console.warn(`Node ${node.id} is missing originalState`);
+    }
+
+    // restore original state if not in circuit
+    const updated = circuit[node.id] ?? node.data.originalState;
+
+    return {
+      ...node,
+      data: {
+        ...node.data,
+        state: updated,
+      },
+    };
+  });
 }
 
 export function applyEdgeStates(

@@ -77,6 +77,7 @@ export function ReactFlowView() {
         data: {
           operation: value.operation,
           state: value.state,
+          originalState: value.state,
         },
       });
     },

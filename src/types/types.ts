@@ -4,6 +4,7 @@ import { CircuitState, NodeType, Operation } from "./enums";
 export type CircuitNodeInternals = {
   operation: Operation;
   state: CircuitState;
+  originalState: CircuitState;
 };
 
 export type InputNode = Node<CircuitNodeInternals, NodeType.Input>;

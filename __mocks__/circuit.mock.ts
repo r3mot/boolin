@@ -16,37 +16,65 @@ export const enum MockNodeId {
 export const mockNodes = {
   low: {
     id: MockNodeId.LowNodeId,
-    data: { operation: Operation.ConstantLow, state: CircuitState.LOW },
+    data: {
+      operation: Operation.ConstantLow,
+      state: CircuitState.LOW,
+      originalState: CircuitState.LOW,
+    },
     position: { x: 0, y: 0 },
   },
   high: {
     id: MockNodeId.HighNodeId,
-    data: { operation: Operation.ConstantHigh, state: CircuitState.HIGH },
+    data: {
+      operation: Operation.ConstantHigh,
+      state: CircuitState.HIGH,
+      originalState: CircuitState.HIGH,
+    },
     position: { x: 50, y: 0 },
   },
   output: {
     id: MockNodeId.OutputNodeId,
-    data: { operation: Operation.Output, state: CircuitState.LOW },
+    data: {
+      operation: Operation.Output,
+      state: CircuitState.LOW,
+      originalState: CircuitState.LOW,
+    },
     position: { x: 100, y: 0 },
   },
   and: {
     id: MockNodeId.AndGateId,
-    data: { operation: Operation.And, state: CircuitState.LOW },
+    data: {
+      operation: Operation.And,
+      state: CircuitState.LOW,
+      originalState: CircuitState.LOW,
+    },
     position: { x: 150, y: 0 },
   },
   or: {
     id: MockNodeId.OrGateId,
-    data: { operation: Operation.Or, state: CircuitState.LOW },
+    data: {
+      operation: Operation.Or,
+      state: CircuitState.LOW,
+      originalState: CircuitState.LOW,
+    },
     position: { x: 200, y: 0 },
   },
   not: {
     id: MockNodeId.NotGateId,
-    data: { operation: Operation.Not, state: CircuitState.LOW },
+    data: {
+      operation: Operation.Not,
+      state: CircuitState.LOW,
+      originalState: CircuitState.LOW,
+    },
     position: { x: 250, y: 0 },
   },
   nand: {
     id: MockNodeId.NandGateId,
-    data: { operation: Operation.Nand, state: CircuitState.LOW },
+    data: {
+      operation: Operation.Nand,
+      state: CircuitState.LOW,
+      originalState: CircuitState.LOW,
+    },
     position: { x: 300, y: 0 },
   },
   malformed: {
