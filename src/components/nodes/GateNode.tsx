@@ -16,7 +16,7 @@ function GateNode({ id, data }: NodeProps<GateNodeType>) {
       />
 
       {data.operation === Operation.Not ? (
-        <OutputHandle limit={1} id={`handle-${id}`} position={Position.Right} />
+        <OutputHandle limit={1} id={`handle-${id}`} position={Position.Left} />
       ) : (
         <div>
           <OutputHandle
