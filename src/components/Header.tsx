@@ -13,7 +13,7 @@ export function Header() {
       <div className="flex items-center space-x-4">
         <Button variant="ghost" size="icon" asChild>
           <a
-            href="https://github.com/yourusername/your-repo"
+            href="https://github.com/r3mot/boolin"
             target="_blank"
             rel="noopener noreferrer"
           >
