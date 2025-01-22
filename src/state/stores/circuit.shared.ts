@@ -15,8 +15,8 @@ import {
 } from "@xyflow/react";
 import { StateCreator } from "zustand";
 
-function isPositionChange(change: NodeChange<CircuitNode>) {
-  return change.type === "position";
+function isStateChange(change: NodeChange<CircuitNode>) {
+  return change.type === "add" || change.type === "remove";
 }
 
 export interface CircuitStoreState {
@@ -92,10 +92,11 @@ export const circuitStoreCreator: StateCreator<CircuitStoreState> = (
   onNodesChange: (changes) => {
     set((state) => {
       const newNodes = syncNodeChanges(changes, state.nodes);
-      const shouldUpdated = changes.some(isPositionChange);
 
-      if (shouldUpdated) {
-        //
+      // TODO: make this more efficient
+      const shouldUpdate = changes.every(isStateChange);
+
+      if (shouldUpdate) {
         const updates = updateCircuit(newNodes, state.edges);
         return {
           edges: updates?.edges ?? state.edges,
