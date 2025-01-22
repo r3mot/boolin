@@ -5,11 +5,15 @@ import {
   Background,
   DefaultEdgeOptions,
   FitViewOptions,
+  NodeTypes,
   ReactFlow,
   useReactFlow,
 } from "@xyflow/react";
 import React, { useCallback, useRef } from "react";
 import { useShallow } from "zustand/shallow";
+import InputNode from "./nodes/InputNode";
+import OutputNode from "./nodes/OutputNode";
+import GateNode from "./nodes/GateNode";
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -18,6 +22,12 @@ const fitViewOptions: FitViewOptions = {
 const defaultEdgeOptions: DefaultEdgeOptions = {
   animated: true,
   data: {},
+};
+
+const nodeTypes: NodeTypes = {
+  input: InputNode,
+  output: OutputNode,
+  gate: GateNode,
 };
 
 export function ReactFlowView() {
@@ -73,6 +83,7 @@ export function ReactFlowView() {
       <ReactFlow
         nodes={nodes}
         edges={edges}
+        nodeTypes={nodeTypes}
         onDrop={onDrop}
         onDragOver={onDragOver}
         onNodesChange={onNodesChange}
