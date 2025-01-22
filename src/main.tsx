@@ -6,13 +6,16 @@ import App from "./App.tsx";
 
 import "./index.css";
 import "@xyflow/react/dist/base.css";
+import { ThemeProvider } from "./state/contexts/ThemeProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ReactFlowProvider>
-      <DragAndDropProvider>
-        <App />
-      </DragAndDropProvider>
-    </ReactFlowProvider>
+    <ThemeProvider>
+      <ReactFlowProvider>
+        <DragAndDropProvider>
+          <App />
+        </DragAndDropProvider>
+      </ReactFlowProvider>
+    </ThemeProvider>
   </StrictMode>
 );
