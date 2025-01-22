@@ -58,3 +58,17 @@
   width: 100vw;
   height: 100vh;
 }
+
+.react-flow__node {
+  border: transparent !important;
+}
+
+@layer components {
+  .handle {
+    @apply w-4 h-4 rounded-full bg-neutral-800;
+  }
+}
+
+.react-flow__edge [data-value="on"] {
+  @apply stroke-green-400;
+}
