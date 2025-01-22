@@ -75,7 +75,7 @@ export const circuitStoreCreator: StateCreator<CircuitStoreState> = (
 
   onConnect: (connection) => {
     set((state) => {
-      const edge = { ...connection, type: "conn" };
+      const edge = { ...connection, type: "connection" };
       const newEdges = syncEdge(edge, state.edges);
 
       const { nodes } = state;

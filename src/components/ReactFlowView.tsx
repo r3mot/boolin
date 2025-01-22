@@ -4,6 +4,7 @@ import { useCircuitStore } from "@/state/stores/circuit.store";
 import {
   Background,
   DefaultEdgeOptions,
+  EdgeTypes,
   FitViewOptions,
   NodeTypes,
   ReactFlow,
@@ -14,6 +15,7 @@ import { useShallow } from "zustand/shallow";
 import InputNode from "./nodes/InputNode";
 import OutputNode from "./nodes/OutputNode";
 import GateNode from "./nodes/GateNode";
+import { Connection } from "./handles/Connection";
 
 const fitViewOptions: FitViewOptions = {
   padding: 0.2,
@@ -30,6 +32,9 @@ const nodeTypes: NodeTypes = {
   gate: GateNode,
 };
 
+const edgeTypes: EdgeTypes = {
+  connection: Connection,
+};
 export function ReactFlowView() {
   const viewRef = useRef<HTMLDivElement>(null);
 
@@ -84,6 +89,7 @@ export function ReactFlowView() {
         nodes={nodes}
         edges={edges}
         nodeTypes={nodeTypes}
+        edgeTypes={edgeTypes}
         onDrop={onDrop}
         onDragOver={onDragOver}
         onNodesChange={onNodesChange}
