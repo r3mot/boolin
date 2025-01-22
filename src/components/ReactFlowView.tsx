@@ -101,6 +101,7 @@ export function ReactFlowView() {
         onInit={setRfInstance}
         fitViewOptions={fitViewOptions}
         defaultEdgeOptions={defaultEdgeOptions}
+        connectionLineStyle={{ strokeWidth: 4 }}
       >
         <Background />
       </ReactFlow>

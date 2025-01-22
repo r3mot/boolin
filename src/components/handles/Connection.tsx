@@ -26,7 +26,14 @@ export function Connection(props: EdgeProps) {
 
   return (
     <>
-      <BaseEdge id={props.id} path={edgePath} style={props.style} />
+      <BaseEdge
+        id={props.id}
+        path={edgePath}
+        style={{
+          ...props.style,
+          strokeWidth: 4,
+        }}
+      />
       <EdgeLabelRenderer>
         <div
           className="absolute pointer-events-auto origin-center w-6 h-6 rounded-full flex items-center justify-center"
