@@ -116,7 +116,7 @@ function DraggableItem({ item, onDragStart }: DraggableItemProps) {
   return (
     <div
       className={cn(
-        "p-4 text-center bg-white dark:bg-neutral-800 flex items-center justify-center",
+        "p-4 text-center bg-white dark:bg-neutral-100 flex items-center justify-center",
         "flex-col gap-2 border rounded-md shadow-sm cursor-move",
         "hover:shadow-md hover:border-primary/50 transition-all duration-200 ease-in-out"
       )}
@@ -125,7 +125,7 @@ function DraggableItem({ item, onDragStart }: DraggableItemProps) {
     >
       <span className="sr-only">{name}</span>
       {renderImage()}
-      <span className="text-xs font-medium text-neutral-600 dark:text-neutral-300">
+      <span className="text-xs font-medium text-neutral-600 dark:text-neutral-950">
         {name}
       </span>
     </div>
