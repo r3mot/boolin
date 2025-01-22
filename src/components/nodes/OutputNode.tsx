@@ -19,8 +19,9 @@ function OutputNode({ id, data }: NodeProps<OutputNodeType>) {
 
   return (
     <NodeContainer>
-      <div className="w-12 h-12">
+      <div className="w-12 h-12" data-testid={`output-${id}`}>
         <img
+          data-testid="output_img"
           src={imagePath}
           alt="output-node"
           className="flex-1 w-full h-full object-cover"

@@ -7,8 +7,9 @@ import { memo } from "react";
 function InputNode({ id, data }: NodeProps<InputNodeType>) {
   return (
     <NodeContainer>
-      <div className="w-12 h-12">
+      <div className="w-12 h-12" data-testid={`input-${id}`}>
         <img
+          data-testid="input_img"
           src={`/svgs/${data.operation}.svg`}
           alt="source-node"
           className="flex-1 w-full h-full object-cover"
