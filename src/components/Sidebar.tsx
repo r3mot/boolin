@@ -50,6 +50,15 @@ const gateNodes: DraggableNode[] = [
     },
   },
   {
+    name: "Nand",
+    node: {
+      type: NodeType.Gate,
+      operation: Operation.Nand,
+      state: CircuitState.LOW,
+      originalState: CircuitState.LOW,
+    },
+  },
+  {
     name: "Or",
     node: {
       type: NodeType.Gate,
@@ -59,19 +68,28 @@ const gateNodes: DraggableNode[] = [
     },
   },
   {
-    name: "Not",
+    name: "Nor",
     node: {
       type: NodeType.Gate,
-      operation: Operation.Not,
+      operation: Operation.Nor,
       state: CircuitState.LOW,
       originalState: CircuitState.LOW,
     },
   },
   {
-    name: "Nand",
+    name: "Xor",
     node: {
       type: NodeType.Gate,
-      operation: Operation.Nand,
+      operation: Operation.Xor,
+      state: CircuitState.LOW,
+      originalState: CircuitState.LOW,
+    },
+  },
+  {
+    name: "Not",
+    node: {
+      type: NodeType.Gate,
+      operation: Operation.Not,
       state: CircuitState.LOW,
       originalState: CircuitState.LOW,
     },
