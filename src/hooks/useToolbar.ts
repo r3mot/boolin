@@ -16,20 +16,27 @@ export function useToolbar() {
   const { setViewport } = useReactFlow();
   const setLocalNodes = useCircuitStore((state) => state.setNodes);
   const setLocalEdges = useCircuitStore((state) => state.setEdges);
+  const setGeneratedId = useCircuitStore((state) => state.setGeneratedId);
+  const generatedId = useCircuitStore((state) => state.generatedId);
   const localNodes = useCircuitStore((state) => state.nodes);
   const flowInstance = useCircuitStore((state) => state.reactFlowInstance);
 
   const save = useCallback(() => {
     if (flowInstance !== undefined) {
       const flow = flowInstance.toObject();
-      localStorage.setItem(lsKey, JSON.stringify(flow));
+      const flowWithId = {
+        ...flow,
+        generatedId,
+      };
+
+      localStorage.setItem(lsKey, JSON.stringify(flowWithId));
       toast.success("Flow saved");
     }
-  }, [flowInstance]);
+  }, [flowInstance, generatedId]);
 
   const restore = useCallback(() => {
     const restoreNodes = async () => {
-      const flow = JSON.parse(localStorage.getItem(lsKey) || "");
+      const flow = JSON.parse(localStorage.getItem(lsKey) || "[]");
       if (flow) {
         if (flow.edges.length === 0 && flow.nodes.length === 0) {
           toast.error("No flow to restore");
@@ -39,13 +46,14 @@ export function useToolbar() {
         const { x = 0, y = 0, zoom = 1 } = flow.viewport;
         setLocalNodes(flow.nodes);
         setLocalEdges(flow.edges);
+        setGeneratedId(flow.generatedId);
         setViewport({ x, y, zoom });
         toast.success("Flow restored");
       }
     };
 
     restoreNodes();
-  }, [setLocalNodes, setLocalEdges, setViewport]);
+  }, [setLocalNodes, setLocalEdges, setGeneratedId, setViewport]);
 
   const createAndDownload = useCallback((url: string) => {
     const a = document.createElement("a");

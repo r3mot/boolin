@@ -23,6 +23,7 @@ export interface CircuitStoreState {
   nodes: CircuitNode[];
   edges: Edge[];
   generatedId: number;
+  setGeneratedId: (id: number) => void;
   getNextId: () => number;
   setNodes: (nodes: CircuitNode[]) => void;
   setEdges: (edges: Edge[]) => void;
@@ -148,6 +149,10 @@ export const circuitStoreCreator: StateCreator<CircuitStoreState> = (
 
       return { nodes: newNodes };
     });
+  },
+
+  setGeneratedId: (id) => {
+    set({ generatedId: id });
   },
 
   clearAll: () => {
