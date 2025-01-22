@@ -29,12 +29,17 @@ export function Connection(props: EdgeProps) {
       <BaseEdge id={props.id} path={edgePath} style={props.style} />
       <EdgeLabelRenderer>
         <div
-          className="absolute pointer-events-auto origin-center w-5 h-5 rounded-full flex items-center justify-center"
+          className="absolute pointer-events-auto origin-center w-6 h-6 rounded-full flex items-center justify-center"
           style={{
             transform: `translate(-50%, -50%) translate(${labelX}px,${labelY}px)`,
           }}
         >
-          <Button onClick={onClick} className="rounded-full">
+          <Button
+            onClick={onClick}
+            className="rounded-full"
+            variant="x"
+            size="xs"
+          >
             ×
           </Button>
         </div>
