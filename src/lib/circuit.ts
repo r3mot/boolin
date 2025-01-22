@@ -120,13 +120,8 @@ export function isPathToActiveOutput(
   edges: Edge[],
   circuit: Record<string, number>
 ) {
-  if (circuit[edge.target] !== CircuitState.HIGH) {
-    console.error(`Edge target ${edge.target} is not HIGH in circuit state.`);
-    return false;
-  }
-
   const visited = new Set<string>();
-  const stack = [edge.target];
+  const stack = [edge.source];
 
   while (stack.length) {
     const nodeId = stack.pop()!;
