@@ -8,6 +8,8 @@ import {
 } from "@/components/ui/accordion";
 import { useDragAndDrop } from "@/hooks/useDragAndDrop";
 import { cn } from "@/lib/utils";
+import { Label } from "../ui/label";
+import { memo, useCallback } from "react";
 
 const ioNodes: DraggableNode[] = [
   {
@@ -106,49 +108,61 @@ interface DraggableItemProps {
   onDragStart: DragStart;
 }
 
-function DraggableItem({ item, onDragStart }: DraggableItemProps) {
+const DraggableItem = memo(function DraggableItem({
+  item,
+  onDragStart,
+}: DraggableItemProps) {
   const { name, node } = item;
 
-  const renderImage = () => {
+  const renderImage = useCallback(() => {
+    const size =
+      node.operation === Operation.Output
+        ? 38
+        : node.operation === Operation.ConstantHigh ||
+            node.operation === Operation.ConstantLow
+          ? 38
+          : 48;
+
+    let src;
     if (node.operation === Operation.Output) {
-      return (
-        <img
-          src={`/svgs/${node.state === CircuitState.HIGH ? "output-high.svg" : "output-low.svg"}`}
-          alt={name}
-          className="w-12 h-12 object-contain"
-          draggable={false}
-        />
-      );
+      src = `/svgs/${node.state === CircuitState.HIGH ? "output-high.svg" : "output-low.svg"}`;
+    } else {
+      src = `/svgs/${node.operation}.svg`;
     }
 
     return (
       <img
-        src={`/svgs/${node.operation}.svg`}
+        src={src}
         alt={name}
-        className="w-12 h-12 object-contain"
+        className={cn("object-contain")}
+        style={{ width: size, height: size }}
         draggable={false}
+        width={size}
+        height={size}
       />
     );
-  };
+  }, [name, node.operation, node.state]);
 
   return (
-    <div
-      className={cn(
-        "p-4 text-center bg-white dark:bg-neutral-100 flex items-center justify-center",
-        "flex-col gap-2 border rounded-md shadow-sm cursor-move",
-        "hover:shadow-md hover:border-primary/50 transition-all duration-200 ease-in-out"
-      )}
-      onDragStart={(e) => onDragStart(e, { ...node })}
-      draggable
-    >
-      <span className="sr-only">{name}</span>
-      {renderImage()}
-      <span className="text-xs font-medium text-neutral-600 dark:text-neutral-950">
-        {name}
-      </span>
+    <div className="space-y-1">
+      <Label className="text-xs font-base">{name}</Label>
+      <div
+        className={cn(
+          "p-4 text-center bg-neutral-100 dark:bg-neutral-100 flex items-center justify-center",
+          "flex-col gap-2 rounded-md cursor-move",
+          "hover:shadow-md hover:border-primary/50 transition-all duration-200 ease-in-out"
+        )}
+        onDragStart={(e) => onDragStart(e, { ...node })}
+        draggable
+        role="button"
+        aria-label={`Draggable item: ${name}`}
+      >
+        <span className="sr-only">{name}</span>
+        {renderImage()}
+      </div>
     </div>
   );
-}
+});
 
 interface DragGroupProps {
   title: string;
@@ -159,12 +173,12 @@ interface DragGroupProps {
 
 function DraggableGroup({ title, items, value, onDragStart }: DragGroupProps) {
   return (
-    <AccordionItem value={value} className="border-b">
-      <AccordionTrigger className="hover:no-underline hover:bg-neutral-100 dark:hover:bg-neutral-800 px-4">
+    <AccordionItem value={value} className="border-b overflow-x-hidden">
+      <AccordionTrigger>
         <span className="text-sm font-semibold">{title}</span>
       </AccordionTrigger>
       <AccordionContent>
-        <div className="grid grid-cols-2 gap-4 p-4">
+        <div className="grid grid-cols-2 gap-4">
           {items.map((item) => (
             <DraggableItem
               key={item.name}
@@ -178,7 +192,7 @@ function DraggableGroup({ title, items, value, onDragStart }: DragGroupProps) {
   );
 }
 
-export function Sidebar() {
+export function ElementSidebar() {
   const { setValue } = useDragAndDrop();
 
   const onDragStart: DragStart = (e, value) => {
@@ -187,23 +201,21 @@ export function Sidebar() {
   };
 
   return (
-    <aside className="w-64 border-r">
-      <div className="flex-grow overflow-auto">
-        <Accordion type="multiple" defaultValue={["io", "gates"]}>
-          <DraggableGroup
-            title="IO Controls"
-            value="io"
-            items={ioNodes}
-            onDragStart={onDragStart}
-          />
-          <DraggableGroup
-            title="Logic Gates"
-            value="gates"
-            items={gateNodes}
-            onDragStart={onDragStart}
-          />
-        </Accordion>
-      </div>
-    </aside>
+    <div className="flex-grow overflow-auto">
+      <Accordion type="multiple" defaultValue={["io", "gates"]}>
+        <DraggableGroup
+          title="IO Controls"
+          value="io"
+          items={ioNodes}
+          onDragStart={onDragStart}
+        />
+        <DraggableGroup
+          title="Logic Gates"
+          value="gates"
+          items={gateNodes}
+          onDragStart={onDragStart}
+        />
+      </Accordion>
+    </div>
   );
 }
