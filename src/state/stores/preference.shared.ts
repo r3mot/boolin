@@ -4,12 +4,14 @@ import { StateCreator } from "zustand";
 export type ConnectionPathType = `${ConnectionLineType}`;
 export type BackgroundType = `${BackgroundVariant}`;
 
-const connectionPathLabels: Record<ConnectionPathType, string> = {
+const connectionPathLabels: Record<
+  Exclude<ConnectionPathType, "simplebezier">,
+  string
+> = {
   default: "Bezier",
   straight: "Straight",
   step: "Stepped",
   smoothstep: "Smooth Stepped",
-  simplebezier: "Simple Bezier",
 };
 
 const connectionPathOptions: { value: ConnectionPathType; label: string }[] =
