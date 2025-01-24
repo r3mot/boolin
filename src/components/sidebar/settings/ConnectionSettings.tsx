@@ -14,32 +14,49 @@ import {
 } from "@/state/stores/preference.shared";
 import { useShallow } from "zustand/shallow";
 import { Switch } from "@/components/ui/switch";
+import { Slider } from "@/components/ui/slider";
+import { Separator } from "@/components/ui/separator";
 
-export function ConnectionSettings() {
-  const {
-    connectionPath,
-    connectionPathOptions,
-    animatedEdges,
-    setAnimatedEdges,
-    setConnectionPath,
-  } = usePreferenceStore(useShallow(connectionSelector));
+function AnimatedEdgesSettings() {
+  const { animatedEdges, setAnimatedEdges } = usePreferenceStore(
+    useShallow(connectionSelector)
+  );
 
-  function handleChange(v: ConnectionPathType) {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="animated-edges" className="text-xs">
+        Animated Edges
+      </Label>
+      <div className="flex items-center justify-between">
+        <span className="text-xs text-muted-foreground">
+          Enable edge animations
+        </span>
+        <Switch
+          checked={animatedEdges}
+          onCheckedChange={setAnimatedEdges}
+          id="animated-edges"
+        />
+      </div>
+    </div>
+  );
+}
+
+function ConnectionPathSettings() {
+  const { connectionPath, connectionPathOptions, setConnectionPath } =
+    usePreferenceStore(useShallow(connectionSelector));
+
+  function handlePathChange(v: ConnectionPathType) {
     setConnectionPath(v);
   }
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center">
-        <Zap className="w-5 h-5 mr-2 text-muted-foreground" />
-        <h3 className="text-sm font-medium">Connection</h3>
-      </div>
       <div className="space-y-2">
         <Label htmlFor="connection-path" className="text-xs">
           Connection Path Type
         </Label>
         <Select
-          onValueChange={handleChange}
+          onValueChange={handlePathChange}
           value={connectionPath}
           aria-label="Select Connection Path"
         >
@@ -61,20 +78,58 @@ export function ConnectionSettings() {
           </SelectContent>
         </Select>
       </div>
-      <div className="flex items-center justify-between">
-        <div className="space-y-0.5">
-          <Label htmlFor="reduced-motion" className="text-xs">
-            Animated Edges
-          </Label>
-          <p className="text-xs text-muted-foreground">
-            Disable animated edges
-          </p>
-        </div>
-        <Switch
-          checked={animatedEdges}
-          onCheckedChange={setAnimatedEdges}
-          id="reduced-motion"
+    </div>
+  );
+}
+
+function StrokeSettings() {
+  const { strokeWidth, setStrokeWidth } = usePreferenceStore(
+    useShallow(connectionSelector)
+  );
+
+  function handleChange(values: number[]) {
+    setStrokeWidth(values[0]);
+  }
+
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="stroke-width" className="text-xs">
+        Stroke Width
+      </Label>
+      <div className="flex items-center space-x-2">
+        <Slider
+          id="stroke-width"
+          min={1}
+          max={4}
+          step={0.5}
+          value={[strokeWidth]}
+          onValueChange={handleChange}
+          aria-labelledby="stroke-width-value"
+          className="flex-grow"
         />
+        <span
+          className="text-xs text-muted-foreground w-8 text-right"
+          id="stroke-width-value"
+        >
+          {strokeWidth}px
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export function ConnectionSettings() {
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center">
+        <Zap className="w-5 h-5 mr-2 text-muted-foreground" />
+        <h3 className="text-sm font-medium">Connection</h3>
+      </div>
+      <div className="space-y-4">
+        <ConnectionPathSettings />
+        <StrokeSettings />
+        <Separator className="my-4" />
+        <AnimatedEdgesSettings />
       </div>
     </div>
   );
