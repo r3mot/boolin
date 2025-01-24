@@ -17,3 +17,8 @@ export type DraggableNode = {
   name: string;
   node: DraggableNodeValue;
 };
+
+export type OnDragNodeStart = (
+  e: React.DragEvent<HTMLDivElement>,
+  value: DraggableNodeValue
+) => void;
