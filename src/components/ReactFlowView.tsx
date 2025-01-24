@@ -3,9 +3,9 @@ import { shallowSelector } from "@/state/stores/circuit.shared";
 import { useCircuitStore } from "@/state/stores/circuit.store";
 import {
   Background,
+  BackgroundVariant,
   DefaultEdgeOptions,
   EdgeTypes,
-  FitViewOptions,
   NodeTypes,
   ReactFlow,
   useReactFlow,
@@ -16,15 +16,7 @@ import InputNode from "./nodes/InputNode";
 import OutputNode from "./nodes/OutputNode";
 import GateNode from "./nodes/GateNode";
 import { Connection } from "./handles/Connection";
-
-const fitViewOptions: FitViewOptions = {
-  padding: 0.2,
-};
-
-const defaultEdgeOptions: DefaultEdgeOptions = {
-  animated: true,
-  data: {},
-};
+import { usePreferenceStore } from "@/state/stores/preference.store";
 
 const nodeTypes: NodeTypes = {
   input: InputNode,
@@ -35,9 +27,12 @@ const nodeTypes: NodeTypes = {
 const edgeTypes: EdgeTypes = {
   connection: Connection,
 };
-export function ReactFlowView() {
-  const viewRef = useRef<HTMLDivElement>(null);
 
+const defaultEdgeOptions: DefaultEdgeOptions = {
+  data: {},
+};
+
+export function ReactFlowView() {
   const {
     nodes,
     edges,
@@ -51,8 +46,16 @@ export function ReactFlowView() {
     concatNode,
   } = useCircuitStore(useShallow(shallowSelector));
 
+  // not shallow so we can re-render on changes
+  const backgroundStyle = usePreferenceStore((state) => state.background);
+  const reduceMotion = usePreferenceStore((state) => state.reducedMotion);
+
+  // dnd stuff
   const { screenToFlowPosition } = useReactFlow();
   const { value } = useDragAndDrop();
+
+  // needed for dnd
+  const viewRef = useRef<HTMLDivElement>(null);
 
   const onDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -99,11 +102,17 @@ export function ReactFlowView() {
         onEdgesDelete={onEdgesDelete}
         onConnect={onConnect}
         onInit={setRfInstance}
-        fitViewOptions={fitViewOptions}
-        defaultEdgeOptions={defaultEdgeOptions}
+        fitViewOptions={{ padding: 0.2 }}
+        defaultEdgeOptions={{
+          // TODO: find something less sus
+          // refer to src/hooks/useFlowAnimation.ts
+          ...defaultEdgeOptions,
+          animated: !reduceMotion,
+        }}
+        className="burger"
         connectionLineStyle={{ strokeWidth: 4 }}
       >
-        <Background />
+        <Background variant={backgroundStyle as BackgroundVariant} />
       </ReactFlow>
     </div>
   );
