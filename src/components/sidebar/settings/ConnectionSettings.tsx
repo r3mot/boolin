@@ -13,10 +13,16 @@ import {
   type ConnectionPathType,
 } from "@/state/stores/preference.shared";
 import { useShallow } from "zustand/shallow";
+import { Switch } from "@/components/ui/switch";
 
 export function ConnectionSettings() {
-  const { connectionPath, connectionPathOptions, setConnectionPath } =
-    usePreferenceStore(useShallow(connectionSelector));
+  const {
+    connectionPath,
+    connectionPathOptions,
+    animatedEdges,
+    setAnimatedEdges,
+    setConnectionPath,
+  } = usePreferenceStore(useShallow(connectionSelector));
 
   function handleChange(v: ConnectionPathType) {
     setConnectionPath(v);
@@ -54,6 +60,21 @@ export function ConnectionSettings() {
             )}
           </SelectContent>
         </Select>
+      </div>
+      <div className="flex items-center justify-between">
+        <div className="space-y-0.5">
+          <Label htmlFor="reduced-motion" className="text-xs">
+            Animated Edges
+          </Label>
+          <p className="text-xs text-muted-foreground">
+            Disable animated edges
+          </p>
+        </div>
+        <Switch
+          checked={animatedEdges}
+          onCheckedChange={setAnimatedEdges}
+          id="reduced-motion"
+        />
       </div>
     </div>
   );

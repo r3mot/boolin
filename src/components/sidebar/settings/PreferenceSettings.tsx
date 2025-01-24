@@ -6,8 +6,9 @@ import { ToggleLeft } from "lucide-react";
 import { useShallow } from "zustand/shallow";
 
 export function PreferencesSettings() {
-  const { animatedEdges, snapToGrid, setReducedMotion, setSnapToGrid } =
-    usePreferenceStore(useShallow(preferenceSelector));
+  const { snapToGrid, setSnapToGrid } = usePreferenceStore(
+    useShallow(preferenceSelector)
+  );
 
   return (
     <div className="space-y-4">
@@ -16,21 +17,6 @@ export function PreferencesSettings() {
         <h3 className="text-sm font-medium">Preferences</h3>
       </div>
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div className="space-y-0.5">
-            <Label htmlFor="reduced-motion" className="text-sm">
-              Reduced Motion
-            </Label>
-            <p className="text-xs text-muted-foreground">
-              Removes animated edges between nodes
-            </p>
-          </div>
-          <Switch
-            checked={animatedEdges}
-            onCheckedChange={setReducedMotion}
-            id="reduced-motion"
-          />
-        </div>
         <div className="flex items-center justify-between">
           <div className="space-y-0.5">
             <Label htmlFor="snap-to-grid" className="text-sm">
