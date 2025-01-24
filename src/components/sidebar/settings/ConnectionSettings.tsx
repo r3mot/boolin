@@ -8,15 +8,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { usePreferenceStore } from "@/state/stores/preference.store";
-import type { ConnectionPathType } from "@/state/stores/preference.shared";
+import {
+  connectionSelector,
+  type ConnectionPathType,
+} from "@/state/stores/preference.shared";
+import { useShallow } from "zustand/shallow";
 
 export function ConnectionSettings() {
-  const path = usePreferenceStore((state) => state.connectionPath);
-  const setPath = usePreferenceStore((state) => state.setConnectionPath);
-  const options = usePreferenceStore((state) => state.connectionPathOptions);
+  const { connectionPath, connectionPathOptions, setConnectionPath } =
+    usePreferenceStore(useShallow(connectionSelector));
 
   function handleChange(v: ConnectionPathType) {
-    setPath(v);
+    setConnectionPath(v);
   }
 
   return (
@@ -31,15 +34,15 @@ export function ConnectionSettings() {
         </Label>
         <Select
           onValueChange={handleChange}
-          value={path}
+          value={connectionPath}
           aria-label="Select Connection Path"
         >
           <SelectTrigger id="connection-path">
             <SelectValue placeholder="Select path type" />
           </SelectTrigger>
           <SelectContent>
-            {options.length > 0 ? (
-              options.map(({ value, label }) => (
+            {connectionPathOptions.length > 0 ? (
+              connectionPathOptions.map(({ value, label }) => (
                 <SelectItem key={value} value={value}>
                   <span className="capitalize">{label}</span>
                 </SelectItem>

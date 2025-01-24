@@ -56,3 +56,11 @@ export const preferenceSelector = (state: PreferencesState) => ({
   setReducedMotion: state.setReducedMotion,
   setSnapToGrid: state.setSnapToGrid,
 });
+
+export const connectionSelector = (state: PreferencesState) => ({
+  connectionPath: state.connectionPath,
+  setConnectionPath: state.setConnectionPath,
+  connectionPathOptions: state.connectionPathOptions,
+  reducedMotion: state.reducedMotion,
+  setReducedMotion: state.setReducedMotion,
+});
