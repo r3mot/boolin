@@ -49,3 +49,10 @@ export const createPreferencesStore: StateCreator<PreferencesState> = (
   setBackground: (variant) => set({ background: variant }),
   setSnapToGrid: (enabled) => set({ snapToGrid: enabled }),
 });
+
+export const preferenceSelector = (state: PreferencesState) => ({
+  reducedMotion: state.reducedMotion,
+  snapToGrid: state.snapToGrid,
+  setReducedMotion: state.setReducedMotion,
+  setSnapToGrid: state.setSnapToGrid,
+});
