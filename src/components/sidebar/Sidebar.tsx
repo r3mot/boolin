@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { ElementSidebar } from "./ElementSidebar";
-import { SettingSidebar } from "./SettingSidebar";
+import { NodeSidebar } from "./nodes/NodeSidebar";
+import { SettingSidebar } from "./settings/SettingSidebar";
 
 export function Sidebar() {
   return (
@@ -12,17 +12,17 @@ export function Sidebar() {
             <TabsTrigger value="nodes" className="w-full">
               Nodes
             </TabsTrigger>
-            <TabsTrigger value="styles" className="w-full">
-              Styles
+            <TabsTrigger value="settings" className="w-full">
+              Settings
             </TabsTrigger>
           </TabsList>
 
-          <Separator className="mt-4" />
+          <Separator className="my-4" />
 
           <TabsContent value="nodes">
-            <ElementSidebar />
+            <NodeSidebar />
           </TabsContent>
-          <TabsContent value="styles">
+          <TabsContent value="settings">
             <SettingSidebar />
           </TabsContent>
         </Tabs>
