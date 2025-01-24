@@ -2,27 +2,20 @@ import {
   BaseEdge,
   EdgeLabelRenderer,
   EdgeProps,
-  getBezierPath,
   useReactFlow,
 } from "@xyflow/react";
 import { useCallback } from "react";
 import { Button } from "../ui/button";
+import { useConnectionPath } from "@/hooks/useConnectionPath";
 
 export function Connection(props: EdgeProps) {
-  const [edgePath, labelX, labelY] = getBezierPath({
-    sourceX: props.sourceX,
-    sourceY: props.sourceY,
-    sourcePosition: props.sourcePosition,
-    targetX: props.targetX,
-    targetY: props.targetY,
-    targetPosition: props.targetPosition,
-  });
-
   const { deleteElements } = useReactFlow();
 
-  const onClick = useCallback(() => {
+  const [edgePath, labelX, labelY] = useConnectionPath(props);
+
+  const handleDelete = useCallback(() => {
     deleteElements({ edges: [{ id: props.id }] });
-  }, [deleteElements, props.id]);
+  }, [deleteElements, props]);
 
   return (
     <>
@@ -31,7 +24,7 @@ export function Connection(props: EdgeProps) {
         path={edgePath}
         style={{
           ...props.style,
-          strokeWidth: 4,
+          strokeWidth: 2,
         }}
       />
       <EdgeLabelRenderer>
@@ -42,7 +35,7 @@ export function Connection(props: EdgeProps) {
           }}
         >
           <Button
-            onClick={onClick}
+            onClick={handleDelete}
             className="rounded-full"
             variant="x"
             size="xs"

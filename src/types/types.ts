@@ -13,7 +13,12 @@ export type GateNode = Node<CircuitNodeInternals, NodeType.Gate>;
 export type CircuitNode = InputNode | OutputNode | GateNode;
 
 export type DraggableNodeValue = CircuitNodeInternals & { type: NodeType };
-export type DraggableNode = {
+export type DraggableNodeType = {
   name: string;
   node: DraggableNodeValue;
 };
+
+export type OnDragNodeStart = (
+  e: React.DragEvent<HTMLDivElement>,
+  value: DraggableNodeValue
+) => void;

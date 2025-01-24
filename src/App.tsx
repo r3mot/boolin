@@ -1,9 +1,12 @@
 import { Header } from "./components/Header";
 import { ReactFlowView } from "./components/ReactFlowView";
 import { Toaster } from "@/components/ui/sonner";
-import { Sidebar } from "./components/Sidebar";
+import { Sidebar } from "@/components/sidebar/Sidebar";
+import { useFlowAnimation } from "./hooks/useFlowAnimation";
 
 export default function App() {
+  // mount and forget
+  useFlowAnimation();
   return (
     <div id="app">
       <Toaster />
