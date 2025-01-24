@@ -1,9 +1,9 @@
 import { CircuitState, NodeType, Operation } from "@/types/enums";
-import type { DraggableNode } from "@/types/types";
+import type { DraggableNodeType } from "@/types/types";
 import { useDragAndDrop } from "@/hooks/useDragAndDrop";
-import { DraggableItem } from "./DraggableNode";
+import { DraggableNode } from "./DraggableNode";
 
-const gateNodes: DraggableNode[] = [
+const gateNodes: DraggableNodeType[] = [
   {
     name: "And",
     node: {
@@ -66,7 +66,7 @@ export function GateNodes() {
   return (
     <div className="grid grid-cols-2 gap-4">
       {gateNodes.map((item) => (
-        <DraggableItem key={item.name} item={item} onDragStart={onDragStart} />
+        <DraggableNode key={item.name} item={item} onDragStart={onDragStart} />
       ))}
     </div>
   );

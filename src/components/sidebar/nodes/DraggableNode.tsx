@@ -1,18 +1,15 @@
 import { memo, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { Label } from "@/components/ui/label";
-import type { DraggableNode } from "@/types/types";
+import type { DraggableNodeType, OnDragNodeStart } from "@/types/types";
 import { CircuitState, Operation } from "@/types/enums";
 
 interface DraggableItemProps {
-  item: DraggableNode;
-  onDragStart: (
-    e: React.DragEvent<HTMLDivElement>,
-    value: DraggableNode["node"]
-  ) => void;
+  item: DraggableNodeType;
+  onDragStart: OnDragNodeStart;
 }
 
-export const DraggableItem = memo(function ({
+export const DraggableNode = memo(function ({
   item,
   onDragStart,
 }: DraggableItemProps) {
