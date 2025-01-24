@@ -9,12 +9,13 @@ import { Button } from "../ui/button";
 import { useConnectionPath } from "@/hooks/useConnectionPath";
 
 export function Connection(props: EdgeProps) {
-  const [edgePath, labelX, labelY] = useConnectionPath(props);
   const { deleteElements } = useReactFlow();
 
-  const onClick = useCallback(() => {
+  const [edgePath, labelX, labelY] = useConnectionPath(props);
+
+  const handleDelete = useCallback(() => {
     deleteElements({ edges: [{ id: props.id }] });
-  }, [deleteElements, props.id]);
+  }, [deleteElements, props]);
 
   return (
     <>
@@ -34,7 +35,7 @@ export function Connection(props: EdgeProps) {
           }}
         >
           <Button
-            onClick={onClick}
+            onClick={handleDelete}
             className="rounded-full"
             variant="x"
             size="xs"
