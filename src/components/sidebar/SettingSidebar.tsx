@@ -1,6 +1,4 @@
 import { usePreferenceStore } from "@/state/stores/preference.store";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-
 import {
   Select,
   SelectContent,
@@ -8,14 +6,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Label } from "../ui/label";
+import { Label } from "@/components/ui/label";
 import {
   BackgroundType,
   ConnectionPathType,
 } from "@/state/stores/preference.shared";
-import { Switch } from "../ui/switch";
-import { EllipsisIcon, MinusIcon } from "lucide-react";
-import { Separator } from "../ui/separator";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
 
 function BackgroundSettings() {
   const background = usePreferenceStore((state) => state.background);
@@ -97,39 +94,6 @@ function ConnectionPathSettings() {
   );
 }
 
-function LineStyleSettings() {
-  return (
-    <div className="space-y-2 isolte">
-      <Label htmlFor="line-style-toggle" className="dark:text-foreground">
-        Line Style
-      </Label>
-      <ToggleGroup
-        type="single"
-        defaultValue="dash"
-        id="line-style-toggle"
-        aria-label="Select Line Style"
-      >
-        <ToggleGroupItem
-          value="dash"
-          variant="outline"
-          size="lg"
-          aria-label="Dashed Line Style"
-        >
-          <EllipsisIcon />
-        </ToggleGroupItem>
-        <ToggleGroupItem
-          value="straight"
-          size="lg"
-          variant="outline"
-          aria-label="Straight Line Style"
-        >
-          <MinusIcon size={30} />
-        </ToggleGroupItem>
-      </ToggleGroup>
-    </div>
-  );
-}
-
 function MotionSettings() {
   const preferMotion = usePreferenceStore((state) => state.reducedMotion);
   const setPreferMotion = usePreferenceStore((state) => state.setReducedMotion);
@@ -155,8 +119,6 @@ export function SettingSidebar() {
         <BackgroundSettings />
         <Separator />
         <ConnectionPathSettings />
-        <Separator />
-        <LineStyleSettings />
         <Separator />
         <MotionSettings />
       </div>
