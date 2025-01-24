@@ -7,11 +7,15 @@ import {
 import { useCallback } from "react";
 import { Button } from "../ui/button";
 import { useConnectionPath } from "@/hooks/useConnectionPath";
+import { usePreferenceStore } from "@/state/stores/preference.store";
+import { useShallow } from "zustand/shallow";
+import { connectionSelector } from "@/state/stores/preference.shared";
 
 export function Connection(props: EdgeProps) {
   const { deleteElements } = useReactFlow();
 
   const [edgePath, labelX, labelY] = useConnectionPath(props);
+  const { strokeWidth } = usePreferenceStore(useShallow(connectionSelector));
 
   const handleDelete = useCallback(() => {
     deleteElements({ edges: [{ id: props.id }] });
@@ -24,7 +28,7 @@ export function Connection(props: EdgeProps) {
         path={edgePath}
         style={{
           ...props.style,
-          strokeWidth: 2,
+          strokeWidth,
         }}
       />
       <EdgeLabelRenderer>

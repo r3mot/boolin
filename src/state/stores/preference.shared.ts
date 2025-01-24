@@ -29,10 +29,12 @@ export interface PreferencesState {
   background: BackgroundType;
   backgroundOptions: BackgroundType[];
   snapToGrid: boolean;
+  strokeWidth: number;
   setConnectionPath: (path: ConnectionPathType) => void;
   setAnimatedEdges: (enabled: boolean) => void;
   setBackground: (variant: BackgroundType) => void;
   setSnapToGrid: (enabled: boolean) => void;
+  setStrokeWidth: (width: number) => void;
 }
 
 export const createPreferencesStore: StateCreator<PreferencesState> = (
@@ -44,10 +46,12 @@ export const createPreferencesStore: StateCreator<PreferencesState> = (
   connectionPathOptions,
   backgroundOptions,
   snapToGrid: false,
+  strokeWidth: 2,
   setConnectionPath: (path) => set({ connectionPath: path }),
   setAnimatedEdges: (enabled) => set({ animatedEdges: enabled }),
   setBackground: (variant) => set({ background: variant }),
   setSnapToGrid: (enabled) => set({ snapToGrid: enabled }),
+  setStrokeWidth: (width) => set({ strokeWidth: width }),
 });
 
 export const preferenceSelector = (state: PreferencesState) => ({
@@ -63,6 +67,8 @@ export const connectionSelector = (state: PreferencesState) => ({
   connectionPathOptions: state.connectionPathOptions,
   animatedEdges: state.animatedEdges,
   setAnimatedEdges: state.setAnimatedEdges,
+  strokeWidth: state.strokeWidth,
+  setStrokeWidth: state.setStrokeWidth,
 });
 
 export const backgroundSelector = (state: PreferencesState) => ({
