@@ -1,6 +1,10 @@
-import { Paintbrush } from "lucide-react";
+import {
+  backgroundSelector,
+  type BackgroundType,
+} from "@/state/stores/preference.shared";
+import { useShallow } from "zustand/shallow";
+import { usePreferenceStore } from "@/state/stores/preference.store";
 
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -8,13 +12,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePreferenceStore } from "@/state/stores/preference.store";
-import type { BackgroundType } from "@/state/stores/preference.shared";
+import { Paintbrush } from "lucide-react";
+import { Label } from "@/components/ui/label";
 
 export function AppearanceSettings() {
-  const background = usePreferenceStore((state) => state.background);
-  const setBackground = usePreferenceStore((state) => state.setBackground);
-  const options = usePreferenceStore((state) => state.backgroundOptions);
+  const { background, backgroundOptions, setBackground } = usePreferenceStore(
+    useShallow(backgroundSelector)
+  );
 
   function handleChange(v: BackgroundType) {
     setBackground(v);
@@ -39,8 +43,8 @@ export function AppearanceSettings() {
             <SelectValue placeholder="Select variant" />
           </SelectTrigger>
           <SelectContent>
-            {options.length > 0 ? (
-              options.map((option) => (
+            {backgroundOptions.length > 0 ? (
+              backgroundOptions.map((option) => (
                 <SelectItem key={option} value={option}>
                   <span className="capitalize"> {option}</span>
                 </SelectItem>

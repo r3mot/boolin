@@ -64,3 +64,9 @@ export const connectionSelector = (state: PreferencesState) => ({
   animatedEdges: state.animatedEdges,
   setAnimatedEdges: state.setAnimatedEdges,
 });
+
+export const backgroundSelector = (state: PreferencesState) => ({
+  background: state.background,
+  backgroundOptions: state.backgroundOptions,
+  setBackground: state.setBackground,
+});
