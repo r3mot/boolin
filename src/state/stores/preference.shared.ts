@@ -25,12 +25,12 @@ const backgroundOptions: BackgroundType[] = Object.values(BackgroundVariant);
 export interface PreferencesState {
   connectionPath: ConnectionPathType;
   connectionPathOptions: { value: ConnectionPathType; label: string }[];
-  reducedMotion: boolean;
+  animatedEdges: boolean;
   background: BackgroundType;
   backgroundOptions: BackgroundType[];
   snapToGrid: boolean;
   setConnectionPath: (path: ConnectionPathType) => void;
-  setReducedMotion: (enabled: boolean) => void;
+  setAnimatedEdges: (enabled: boolean) => void;
   setBackground: (variant: BackgroundType) => void;
   setSnapToGrid: (enabled: boolean) => void;
 }
@@ -39,21 +39,21 @@ export const createPreferencesStore: StateCreator<PreferencesState> = (
   set
 ) => ({
   connectionPath: "default",
-  reducedMotion: false,
+  animatedEdges: false,
   background: "dots",
   connectionPathOptions,
   backgroundOptions,
   snapToGrid: false,
   setConnectionPath: (path) => set({ connectionPath: path }),
-  setReducedMotion: (enabled) => set({ reducedMotion: enabled }),
+  setAnimatedEdges: (enabled) => set({ animatedEdges: enabled }),
   setBackground: (variant) => set({ background: variant }),
   setSnapToGrid: (enabled) => set({ snapToGrid: enabled }),
 });
 
 export const preferenceSelector = (state: PreferencesState) => ({
-  reducedMotion: state.reducedMotion,
+  animatedEdges: state.animatedEdges,
   snapToGrid: state.snapToGrid,
-  setReducedMotion: state.setReducedMotion,
+  setReducedMotion: state.setAnimatedEdges,
   setSnapToGrid: state.setSnapToGrid,
 });
 
@@ -61,6 +61,6 @@ export const connectionSelector = (state: PreferencesState) => ({
   connectionPath: state.connectionPath,
   setConnectionPath: state.setConnectionPath,
   connectionPathOptions: state.connectionPathOptions,
-  reducedMotion: state.reducedMotion,
-  setReducedMotion: state.setReducedMotion,
+  animatedEdges: state.animatedEdges,
+  setAnimatedEdges: state.setAnimatedEdges,
 });

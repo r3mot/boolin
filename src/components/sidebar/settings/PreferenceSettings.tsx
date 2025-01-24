@@ -6,7 +6,7 @@ import { ToggleLeft } from "lucide-react";
 import { useShallow } from "zustand/shallow";
 
 export function PreferencesSettings() {
-  const { reducedMotion, snapToGrid, setReducedMotion, setSnapToGrid } =
+  const { animatedEdges, snapToGrid, setReducedMotion, setSnapToGrid } =
     usePreferenceStore(useShallow(preferenceSelector));
 
   return (
@@ -26,7 +26,7 @@ export function PreferencesSettings() {
             </p>
           </div>
           <Switch
-            checked={reducedMotion}
+            checked={animatedEdges}
             onCheckedChange={setReducedMotion}
             id="reduced-motion"
           />

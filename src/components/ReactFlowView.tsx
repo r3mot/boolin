@@ -48,7 +48,7 @@ export function ReactFlowView() {
 
   // not shallow so we can re-render on changes
   const backgroundStyle = usePreferenceStore((state) => state.background);
-  const reduceMotion = usePreferenceStore((state) => state.reducedMotion);
+  const animatedEdges = usePreferenceStore((state) => state.animatedEdges);
   const snapToGrid = usePreferenceStore((state) => state.snapToGrid);
 
   // dnd stuff
@@ -109,7 +109,7 @@ export function ReactFlowView() {
           // TODO: find something less sus
           // refer to src/hooks/useFlowAnimation.ts
           ...defaultEdgeOptions,
-          animated: !reduceMotion,
+          animated: animatedEdges,
         }}
         className="burger"
         connectionLineStyle={{ strokeWidth: 4 }}
