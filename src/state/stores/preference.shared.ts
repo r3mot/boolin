@@ -28,9 +28,11 @@ export interface PreferencesState {
   reducedMotion: boolean;
   background: BackgroundType;
   backgroundOptions: BackgroundType[];
+  snapToGrid: boolean;
   setConnectionPath: (path: ConnectionPathType) => void;
   setReducedMotion: (enabled: boolean) => void;
   setBackground: (variant: BackgroundType) => void;
+  setSnapToGrid: (enabled: boolean) => void;
 }
 
 export const createPreferencesStore: StateCreator<PreferencesState> = (
@@ -41,7 +43,9 @@ export const createPreferencesStore: StateCreator<PreferencesState> = (
   background: "dots",
   connectionPathOptions,
   backgroundOptions,
+  snapToGrid: false,
   setConnectionPath: (path) => set({ connectionPath: path }),
   setReducedMotion: (enabled) => set({ reducedMotion: enabled }),
   setBackground: (variant) => set({ background: variant }),
+  setSnapToGrid: (enabled) => set({ snapToGrid: enabled }),
 });

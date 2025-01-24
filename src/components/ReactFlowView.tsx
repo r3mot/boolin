@@ -49,6 +49,7 @@ export function ReactFlowView() {
   // not shallow so we can re-render on changes
   const backgroundStyle = usePreferenceStore((state) => state.background);
   const reduceMotion = usePreferenceStore((state) => state.reducedMotion);
+  const snapToGrid = usePreferenceStore((state) => state.snapToGrid);
 
   // dnd stuff
   const { screenToFlowPosition } = useReactFlow();
@@ -102,6 +103,7 @@ export function ReactFlowView() {
         onEdgesDelete={onEdgesDelete}
         onConnect={onConnect}
         onInit={setRfInstance}
+        snapToGrid={snapToGrid}
         fitViewOptions={{ padding: 0.2 }}
         defaultEdgeOptions={{
           // TODO: find something less sus
