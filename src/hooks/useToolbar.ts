@@ -1,5 +1,7 @@
 import { useCircuitStore } from "@/state/stores/circuit.store";
+import { usePreferenceStore } from "@/state/stores/preference.store";
 import {
+  Edge,
   getNodesBounds,
   getViewportForBounds,
   useReactFlow,
@@ -20,6 +22,7 @@ export function useToolbar() {
   const generatedId = useCircuitStore((state) => state.generatedId);
   const localNodes = useCircuitStore((state) => state.nodes);
   const flowInstance = useCircuitStore((state) => state.reactFlowInstance);
+  const animatedEdges = usePreferenceStore((state) => state.animatedEdges);
 
   const save = useCallback(() => {
     if (flowInstance !== undefined) {
@@ -43,9 +46,16 @@ export function useToolbar() {
           return;
         }
 
+        const edges = flow.edges.map((edge: Edge) => {
+          return {
+            ...edge,
+            animated: animatedEdges,
+          };
+        });
+
         const { x = 0, y = 0, zoom = 1 } = flow.viewport;
         setLocalNodes(flow.nodes);
-        setLocalEdges(flow.edges);
+        setLocalEdges(edges);
         setGeneratedId(flow.generatedId);
         setViewport({ x, y, zoom });
         toast.success("Flow restored");
@@ -53,7 +63,13 @@ export function useToolbar() {
     };
 
     restoreNodes();
-  }, [setLocalNodes, setLocalEdges, setGeneratedId, setViewport]);
+  }, [
+    setLocalNodes,
+    setLocalEdges,
+    setGeneratedId,
+    setViewport,
+    animatedEdges,
+  ]);
 
   const createAndDownload = useCallback((url: string) => {
     const a = document.createElement("a");
