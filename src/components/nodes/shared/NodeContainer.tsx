@@ -16,16 +16,16 @@ export function NodeContainer({
   ...props
 }: PropsWithChildren<HTMLAttributes<HTMLDivElement> & Props>) {
   return (
-    <div
-      {...props}
-      className={cn(
-        "relative px-8 py-4 rounded-md bg-background dark:bg-neutral-100 shadow-sm border-muted-foreground border ",
-        className
-      )}
-    >
-      <NodeContextMenu id={id} operation={operation}>
+    <NodeContextMenu id={id} operation={operation}>
+      <div
+        {...props}
+        className={cn(
+          "relative px-8 py-4 rounded-md bg-background dark:bg-neutral-100 shadow-sm border-muted-foreground border ",
+          className
+        )}
+      >
         {children}
-      </NodeContextMenu>
-    </div>
+      </div>
+    </NodeContextMenu>
   );
 }
