@@ -1,7 +1,7 @@
 import { type OutputNode as OutputNodeType } from "@/types/types";
 import { NodeProps, Position } from "@xyflow/react";
 import { memo, useEffect, useState } from "react";
-import { NodeContainer } from "./Container";
+import { NodeContainer } from "./shared/NodeContainer";
 import { CircuitState, GateMetadata } from "@/types/enums";
 import { InputHandle } from "../handles/InputHandle";
 
@@ -19,7 +19,7 @@ function OutputNode({ id, data }: NodeProps<OutputNodeType>) {
   }, [data.state]);
 
   return (
-    <NodeContainer>
+    <NodeContainer id={id} operation={data.operation}>
       <div className="w-12 h-12" data-testid={`output-${id}`}>
         <img
           data-testid="output_img"
