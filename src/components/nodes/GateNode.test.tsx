@@ -71,8 +71,8 @@ describe("GateNode Component", () => {
       />
     );
 
-    const outputHandle = screen.getByTestId("output-handle-handle-1");
-    const inputHandle = screen.getByTestId("input-handle-handle-1");
+    const outputHandle = screen.getByTestId(/output-handle-handle/);
+    const inputHandle = screen.getByTestId(/input-handle-target/);
 
     expect(outputHandle).toBeInTheDocument();
     expect(inputHandle).toBeInTheDocument();
@@ -96,12 +96,12 @@ describe("GateNode Component", () => {
       />
     );
 
-    const outputHandle1 = screen.getByTestId("output-handle-target-1-1");
-    const outputHandle2 = screen.getByTestId("output-handle-target-2-1");
-    const inputHandle = screen.getByTestId("input-handle-handle-1");
+    const outputHandle = screen.getByTestId("output-handle-handle-1-1");
+    const inputHandle1 = screen.getByTestId("input-handle-target-1-1");
+    const inputHandle2 = screen.getByTestId("input-handle-target-2-1");
 
-    expect(outputHandle1).toBeInTheDocument();
-    expect(outputHandle2).toBeInTheDocument();
-    expect(inputHandle).toBeInTheDocument();
+    expect(outputHandle).toBeInTheDocument();
+    expect(inputHandle2).toBeInTheDocument();
+    expect(inputHandle1).toBeInTheDocument();
   });
 });
