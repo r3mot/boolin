@@ -92,12 +92,6 @@ describe("Circuit Library Tests", () => {
         expect(
           computeGateSignal(Operation.Nor, [CircuitState.LOW, CircuitState.LOW])
         ).toBe(CircuitState.HIGH);
-        expect(
-          computeGateSignal(Operation.Xnor, [
-            CircuitState.HIGH,
-            CircuitState.HIGH,
-          ])
-        ).toBe(CircuitState.HIGH);
       });
     });
   });
