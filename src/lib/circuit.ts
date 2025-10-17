@@ -1,6 +1,6 @@
 import { CircuitState, Operation } from "@/types/enums";
-import { CircuitNode } from "@/types/types";
-import { Edge, getIncomers, getOutgoers } from "@xyflow/react";
+import { type CircuitNode } from "@/types/types";
+import { Edge, getOutgoers } from "@xyflow/react";
 import { Logic } from "./logic";
 import isEqual from "lodash.isequal";
 
@@ -14,7 +14,7 @@ const MAX_INPUTS: Record<Operation, number> = {
   [Operation.Nand]: 2,
   [Operation.Xor]: 2,
   [Operation.Nor]: 2,
-  [Operation.Xnor]: 2,
+  // [Operation.Xnor]: 2,
 };
 
 export function isOutputNode(id: string, nodes: CircuitNode[]) {
@@ -30,10 +30,11 @@ export function getSourceNodes(nodes: CircuitNode[]): CircuitNode[] {
   );
 }
 
-export function computeGateSignal(op: Operation, inputs: number[]): number {
-  if (inputs.length < MAX_INPUTS[op]) {
-    return CircuitState.FLOATING;
-  }
+export function computeGateSignal(
+  op: Operation,
+  inputs: CircuitState[]
+): CircuitState {
+  if (inputs.length < MAX_INPUTS[op]) return CircuitState.FLOATING;
 
   switch (op) {
     case Operation.ConstantLow:
@@ -50,12 +51,10 @@ export function computeGateSignal(op: Operation, inputs: number[]): number {
       return Logic.not(inputs);
     case Operation.Nand:
       return Logic.nand(inputs);
-    case Operation.Xor:
-      return Logic.xor(inputs);
     case Operation.Nor:
       return Logic.nor(inputs);
-    case Operation.Xnor:
-      return Logic.xnor(inputs);
+    case Operation.Xor:
+      return Logic.xor(inputs);
     default:
       return CircuitState.FLOATING;
   }
@@ -64,51 +63,62 @@ export function computeGateSignal(op: Operation, inputs: number[]): number {
 export function simulateCircuit(
   nodes: CircuitNode[],
   edges: Edge[]
-): Record<string, number> {
-  const states: Record<string, number> = {};
+): Record<string, CircuitState> {
+  const states: Record<string, CircuitState> = {};
 
-  const sources = getSourceNodes(nodes);
-  const queue = [...sources];
+  const outMap: Record<string, string[]> = {};
+  const inMap: Record<string, string[]> = {};
 
-  for (const source of sources) {
-    states[source.id] =
-      source.data.operation === Operation.ConstantHigh
-        ? CircuitState.HIGH
-        : CircuitState.LOW;
+  for (const edge of edges) {
+    if (!outMap[edge.source]) outMap[edge.source] = [];
+    if (!inMap[edge.target]) inMap[edge.target] = [];
+    outMap[edge.source].push(edge.target);
+    inMap[edge.target].push(edge.source);
   }
 
+  const queue: string[] = [];
+
+  for (const node of nodes) {
+    if (
+      node.data.operation === Operation.ConstantHigh ||
+      node.data.operation === Operation.ConstantLow
+    ) {
+      states[node.id] =
+        node.data.operation === Operation.ConstantHigh
+          ? CircuitState.HIGH
+          : CircuitState.LOW;
+      queue.push(node.id);
+    }
+  }
+
+  // signal propagation
   while (queue.length > 0) {
-    const current = queue.shift()!;
-    const connectedNodes = getOutgoers(current, nodes, edges);
+    const currentId = queue.shift()!;
+    const currentSignal = states[currentId];
 
-    connectedNodes.forEach((target) => {
-      const incoming = getIncomers(target, nodes, edges);
-      const signals = incoming.map((i) => states[i.id] ?? CircuitState.LOW);
+    if (currentSignal === CircuitState.FLOATING) continue;
 
-      if (signals.length < MAX_INPUTS[target.data.operation]) {
-        console.warn(`Node ${target.id} has insufficient inputs.`);
-        return;
+    const targets = outMap[currentId] ?? [];
+    for (const targetId of targets) {
+      const targetNode = nodes.find((n) => n.id === targetId);
+      if (!targetNode) continue;
+
+      const sourceIds = inMap[targetId] ?? [];
+      const inputSignals = sourceIds.map(
+        (id) => states[id] ?? CircuitState.FLOATING
+      );
+
+      // skip gates that don't have all inputs connected
+      if (inputSignals.length < MAX_INPUTS[targetNode.data.operation]) continue;
+
+      const result = computeGateSignal(targetNode.data.operation, inputSignals);
+      if (result === CircuitState.FLOATING) continue;
+
+      if (states[targetId] !== result) {
+        states[targetId] = result;
+        queue.push(targetId);
       }
-
-      const signal = computeGateSignal(target.data.operation, signals);
-
-      if (signal === CircuitState.FLOATING) {
-        console.warn(`Node ${target.id} has floating signal.`);
-        return;
-      }
-
-      const prevSignal = states[target.id] ?? CircuitState.LOW;
-      if (
-        prevSignal === signal &&
-        Object.prototype.hasOwnProperty.call(states, target.id)
-      ) {
-        console.log(`No change in signal for ${target.id}`);
-        return;
-      }
-
-      states[target.id] = signal;
-      queue.push(target);
-    });
+    }
   }
 
   return states;
@@ -145,8 +155,8 @@ export function isPathToActiveOutput(
 
 export function applyNodeStates(
   nodes: CircuitNode[],
-  circuit: Record<string, number>
-) {
+  circuit: Record<string, CircuitState>
+): CircuitNode[] {
   // React Flow expects nodes to be immutable
   return nodes.map((node) => {
     if (node.data.originalState === undefined) {
@@ -169,8 +179,8 @@ export function applyNodeStates(
 export function applyEdgeStates(
   nodes: CircuitNode[],
   edges: Edge[],
-  circuit: Record<string, number>
-) {
+  circuit: Record<string, CircuitState>
+): Edge[] {
   return edges.map((e) => {
     const connected = isPathToActiveOutput(e, nodes, edges, circuit);
     const newStyle = connected ? { stroke: "green" } : {};
