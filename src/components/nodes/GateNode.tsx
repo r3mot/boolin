@@ -1,6 +1,6 @@
 import { type GateNode as GateNodeType } from "@/types/types";
 import { NodeProps, Position } from "@xyflow/react";
-import { NodeContainer } from "./Container";
+import { NodeContainer } from "./shared/NodeContainer";
 import { GateMetadata } from "@/types/enums";
 import { OutputHandle } from "../handles/OutputHandle";
 import { InputHandle } from "../handles/InputHandle";
@@ -9,7 +9,7 @@ import { memo } from "react";
 function GateNode({ id, data }: NodeProps<GateNodeType>) {
   const meta = GateMetadata[data.operation];
   return (
-    <NodeContainer>
+    <NodeContainer id={id} operation={data.operation}>
       <img
         src={`/svgs/${data.operation}.svg`}
         alt="gate-node"

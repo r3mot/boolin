@@ -1,6 +1,6 @@
 import { type InputNode as InputNodeType } from "@/types/types";
 import { NodeProps, Position } from "@xyflow/react";
-import { NodeContainer } from "./Container";
+import { NodeContainer } from "./shared/NodeContainer";
 import { memo } from "react";
 import { GateMetadata } from "@/types/enums";
 import { OutputHandle } from "../handles/OutputHandle";
@@ -10,7 +10,7 @@ function InputNode({ id, data }: NodeProps<InputNodeType>) {
 
   console.log("InputNode data:", id);
   return (
-    <NodeContainer>
+    <NodeContainer id={id} operation={data.operation}>
       <div className="w-12 h-12" data-testid={`input-${id}`}>
         <img
           data-testid="input_img"
