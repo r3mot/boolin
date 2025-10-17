@@ -43,7 +43,7 @@ export function ReactFlowView() {
     onNodesDelete,
     onEdgesChange,
     onEdgesDelete,
-    setRfInstance,
+    setReactFlowInstance,
     concatNode,
   } = useCircuitStore(useShallow(shallowSelector));
 
@@ -103,7 +103,7 @@ export function ReactFlowView() {
         onEdgesChange={onEdgesChange}
         onEdgesDelete={onEdgesDelete}
         onConnect={onConnect}
-        onInit={setRfInstance}
+        onInit={setReactFlowInstance}
         snapToGrid={snapToGrid}
         fitViewOptions={{ padding: 0.2 }}
         defaultEdgeOptions={{
