@@ -1,4 +1,4 @@
-import { Logic } from "../src/lib/logic";
+import { Logic } from "@/lib/simulation/logic";
 import { expect, describe, it } from "vitest";
 
 describe("Logic", () => {
