@@ -15,14 +15,14 @@ export function OutputHandle({
   ...props
 }: OutputHandleProps) {
   const connections = useNodeConnections({
-    handleType: "target",
+    handleType: "source",
     handleId: id,
   });
 
   return (
     <Handle
       {...props}
-      type="target"
+      type="source"
       className={cn("handle", className)}
       id={id}
       isConnectable={connections.length < limit}
