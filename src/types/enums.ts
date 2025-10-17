@@ -26,3 +26,17 @@ export const Operation = {
 } as const;
 
 export type Operation = (typeof Operation)[keyof typeof Operation];
+
+export const GateMetadata = {
+  [Operation.ConstantLow]: { inputs: 0, outputs: 1 },
+  [Operation.ConstantHigh]: { inputs: 0, outputs: 1 },
+  [Operation.Output]: { inputs: 1, outputs: 0 },
+  [Operation.Not]: { inputs: 1, outputs: 1 },
+  [Operation.And]: { inputs: 2, outputs: 1 },
+  [Operation.Or]: { inputs: 2, outputs: 1 },
+  [Operation.Nand]: { inputs: 2, outputs: 1 },
+  [Operation.Nor]: { inputs: 2, outputs: 1 },
+  [Operation.Xor]: { inputs: 2, outputs: 1 },
+} as const;
+
+export type GateMetadata = typeof GateMetadata;
