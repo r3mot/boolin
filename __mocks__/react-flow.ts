@@ -32,7 +32,7 @@ export const mockReactFlow = () => {
 
   global.ResizeObserver = ResizeObserver;
 
-  // @ts-ignore
+  // @ts-expect-error - DOMMatrixReadOnly mock implementation doesn't match the full web API
   global.DOMMatrixReadOnly = DOMMatrixReadOnly;
 
   Object.defineProperties(global.HTMLElement.prototype, {
