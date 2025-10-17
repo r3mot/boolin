@@ -17,6 +17,7 @@ import OutputNode from "./nodes/OutputNode";
 import GateNode from "./nodes/GateNode";
 import { Connection } from "./handles/Connection";
 import { usePreferenceStore } from "@/state/stores/preference.store";
+import { NodeInfoPanel } from "./panels/NodeInfoPanel";
 
 const nodeTypes: NodeTypes = {
   input: InputNode,
@@ -115,6 +116,7 @@ export function ReactFlowView() {
         connectionLineStyle={{ strokeWidth: 4 }}
       >
         <Background variant={backgroundStyle as BackgroundVariant} />
+        <NodeInfoPanel position="top-right" />
       </ReactFlow>
     </div>
   );
