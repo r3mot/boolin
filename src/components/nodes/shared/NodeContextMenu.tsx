@@ -48,10 +48,10 @@ export function NodeContextMenu({
     <ContextMenu>
       <ContextMenuTrigger>{children}</ContextMenuTrigger>
 
-      <ContextMenuContent className="backdrop-blur-sm border-border/50 shadow-xl">
+      <ContextMenuContent className="w-52 backdrop-blur-sm border-border/50 shadow-xl">
         <div className="px-3 py-2 border-b border-border/50">
-          <p className="text-xs font-medium text-muted-foreground">
-            Node actions ({operation})
+          <p className="text-sm font-medium text-muted-foreground">
+            Actions: ({operation})
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export function NodeContextMenu({
             <span className="font-medium">IO Nodes</span>
           </ContextMenuSubTrigger>
           <ContextMenuPortal>
-            <ContextMenuSubContent className="bg-background/95 backdrop-blur-sm border-border/50 shadow-xl">
+            <ContextMenuSubContent className="ml-1 bg-background/95 backdrop-blur-sm border-border/50 shadow-xl">
               {ioNodes.map((key) => {
                 const type = key as Operation;
                 return (
@@ -87,7 +87,7 @@ export function NodeContextMenu({
             <span className="font-medium">Logic Gates</span>
           </ContextMenuSubTrigger>
           <ContextMenuPortal>
-            <ContextMenuSubContent className="bg-background/95 backdrop-blur-sm border-border/50 shadow-xl">
+            <ContextMenuSubContent className="ml-1 bg-background/95 backdrop-blur-sm border-border/50 shadow-xl">
               {logicGates.map((key) => {
                 const type = key as Operation;
                 return (
