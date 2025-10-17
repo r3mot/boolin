@@ -23,7 +23,7 @@ export interface CircuitStoreProviderProps {
 }
 
 export function CircuitStoreProvider({ children }: CircuitStoreProviderProps) {
-  const storeRef = useRef<CircuitStoreApi>();
+  const storeRef = useRef<CircuitStoreApi>({} as CircuitStoreApi);
 
   if (!storeRef.current) {
     storeRef.current = createCircuitStore();

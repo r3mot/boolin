@@ -1,5 +1,5 @@
 import { CircuitNodeInternals } from "@/types/types";
-import { CircuitState, Operation } from "../src/types/enums";
+import { CircuitState, NodeType, Operation } from "../src/types/enums";
 import { Edge } from "@xyflow/react";
 
 export const enum MockNodeId {
@@ -16,6 +16,7 @@ export const enum MockNodeId {
 export const mockNodes = {
   low: {
     id: MockNodeId.LowNodeId,
+    type: NodeType.Input,
     data: {
       operation: Operation.ConstantLow,
       state: CircuitState.LOW,
@@ -25,6 +26,7 @@ export const mockNodes = {
   },
   high: {
     id: MockNodeId.HighNodeId,
+    type: NodeType.Input,
     data: {
       operation: Operation.ConstantHigh,
       state: CircuitState.HIGH,
@@ -34,6 +36,7 @@ export const mockNodes = {
   },
   output: {
     id: MockNodeId.OutputNodeId,
+    type: NodeType.Output,
     data: {
       operation: Operation.Output,
       state: CircuitState.LOW,
@@ -43,6 +46,7 @@ export const mockNodes = {
   },
   and: {
     id: MockNodeId.AndGateId,
+    type: NodeType.Gate,
     data: {
       operation: Operation.And,
       state: CircuitState.LOW,
@@ -52,6 +56,7 @@ export const mockNodes = {
   },
   or: {
     id: MockNodeId.OrGateId,
+    type: NodeType.Gate,
     data: {
       operation: Operation.Or,
       state: CircuitState.LOW,
@@ -61,6 +66,7 @@ export const mockNodes = {
   },
   not: {
     id: MockNodeId.NotGateId,
+    type: NodeType.Gate,
     data: {
       operation: Operation.Not,
       state: CircuitState.LOW,
@@ -70,6 +76,7 @@ export const mockNodes = {
   },
   nand: {
     id: MockNodeId.NandGateId,
+    type: NodeType.Gate,
     data: {
       operation: Operation.Nand,
       state: CircuitState.LOW,
@@ -78,7 +85,8 @@ export const mockNodes = {
     position: { x: 300, y: 0 },
   },
   malformed: {
-    id: "malformed",
+    id: MockNodeId.MalformedNodeId,
+    type: NodeType.Gate,
     data: {} as CircuitNodeInternals,
     position: { x: 350, y: 0 },
   },
