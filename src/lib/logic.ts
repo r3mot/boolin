@@ -1,25 +1,57 @@
+import { CircuitState } from "@/types/enums";
+
 const mask = 1;
 
+function toBinary(v: CircuitState): number {
+  return v === CircuitState.HIGH ? 1 : 0;
+}
+
+function fromBinary(v: number): CircuitState {
+  return (v & mask) === 1 ? CircuitState.HIGH : CircuitState.LOW;
+}
+
 export const Logic = {
-  and(values: number[]) {
-    return values.reduce((a, v) => a & v, 1);
+  and(values: CircuitState[]): CircuitState {
+    if (values.includes(CircuitState.FLOATING)) return CircuitState.FLOATING;
+    let result = mask;
+    for (const v of values) result &= toBinary(v);
+    return fromBinary(result);
   },
-  or(values: number[]) {
-    return values.reduce((a, v) => a | v, 0);
+
+  or(values: CircuitState[]): CircuitState {
+    if (values.includes(CircuitState.FLOATING)) return CircuitState.FLOATING;
+    let result = 0;
+    for (const v of values) result |= toBinary(v);
+    return fromBinary(result);
   },
-  not(values: number[]) {
-    return ~values[0] & mask;
+
+  not([v]: CircuitState[]): CircuitState {
+    if (v === CircuitState.FLOATING) return CircuitState.FLOATING;
+    return fromBinary(~toBinary(v));
   },
-  nand(values: number[]) {
-    return ~this.and(values) & mask;
+
+  nand(values: CircuitState[]): CircuitState {
+    const val = Logic.and(values);
+    if (val === CircuitState.FLOATING) return CircuitState.FLOATING;
+    return Logic.not([val]);
   },
-  xor(values: number[]) {
-    return values.reduce((a, v) => a ^ v, 0);
+
+  xor(values: CircuitState[]): CircuitState {
+    if (values.includes(CircuitState.FLOATING)) return CircuitState.FLOATING;
+    let result = 0;
+    for (const v of values) result ^= toBinary(v);
+    return fromBinary(result);
   },
-  nor(values: number[]) {
-    return ~this.or(values) & mask;
+
+  nor(values: CircuitState[]): CircuitState {
+    const val = Logic.or(values);
+    if (val === CircuitState.FLOATING) return CircuitState.FLOATING;
+    return Logic.not([val]);
   },
-  xnor(values: number[]) {
-    return ~this.xor(values) & mask;
+
+  xnor(values: CircuitState[]): CircuitState {
+    const val = Logic.xor(values);
+    if (val === CircuitState.FLOATING) return CircuitState.FLOATING;
+    return Logic.not([val]);
   },
 };
