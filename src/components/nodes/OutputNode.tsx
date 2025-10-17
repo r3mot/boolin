@@ -2,10 +2,11 @@ import { type OutputNode as OutputNodeType } from "@/types/types";
 import { NodeProps, Position } from "@xyflow/react";
 import { memo, useEffect, useState } from "react";
 import { NodeContainer } from "./Container";
-import { CircuitState } from "@/types/enums";
-import { OutputHandle } from "../handles/OutputHandle";
+import { CircuitState, GateMetadata } from "@/types/enums";
+import { InputHandle } from "../handles/InputHandle";
 
 function OutputNode({ id, data }: NodeProps<OutputNodeType>) {
+  const meta = GateMetadata[data.operation];
   const [value, setValue] = useState(data.state);
 
   const imagePath =
@@ -27,7 +28,10 @@ function OutputNode({ id, data }: NodeProps<OutputNodeType>) {
           className="flex-1 w-full h-full object-cover"
         />
       </div>
-      <OutputHandle limit={1} position={Position.Left} id={`handle-${id}`} />
+
+      {Array.from({ length: meta.inputs }).map((_, i) => (
+        <InputHandle position={Position.Left} id={`target-${i}-${id}`} />
+      ))}
     </NodeContainer>
   );
 }
