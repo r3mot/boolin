@@ -1,4 +1,4 @@
-import { updateCircuit } from "@/lib/circuit";
+import { updateCircuit } from "@/lib/simulation/state";
 import { CircuitNode } from "@/types/types";
 import {
   Edge,

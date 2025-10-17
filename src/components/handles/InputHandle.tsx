@@ -8,6 +8,6 @@ interface InputHandleProps
 
 export function InputHandle({ className, ...props }: InputHandleProps) {
   return (
-    <Handle {...props} type="source" className={cn("handle", className)} />
+    <Handle {...props} type="target" className={cn("handle", className)} />
   );
 }

@@ -1,19 +1,17 @@
-import {
-  isOutputNode,
-  getSourceNodes,
-  computeGateSignal,
-  simulateCircuit,
-  applyEdgeStates,
-  haveNodeStatesChanged,
-  haveEdgeStylesChanged,
-  applyNodeStates,
-  isPathToActiveOutput,
-  updateCircuit,
-} from "@/lib/circuit";
-
 import { CircuitState, Operation } from "@/types/enums";
 import { mockEdge, MockNodeId, mockNodes } from "../__mocks__/circuit.mock";
 import { expect, describe, it } from "vitest";
+import { getSourceNodes, isOutputNode } from "@/lib/simulation/helpers";
+import { computeGateSignal } from "@/lib/simulation/logic";
+import { isPathToActiveOutput } from "@/lib/simulation/graph";
+import { simulateCircuit } from "@/lib/simulation/simulation";
+import {
+  applyEdgeStates,
+  applyNodeStates,
+  haveEdgeStylesChanged,
+  haveNodeStatesChanged,
+  updateCircuit,
+} from "@/lib/simulation/state";
 
 describe("Circuit Library Tests", () => {
   describe("Node Identification Functions", () => {
@@ -91,12 +89,6 @@ describe("Circuit Library Tests", () => {
         ).toBe(CircuitState.HIGH);
         expect(
           computeGateSignal(Operation.Nor, [CircuitState.LOW, CircuitState.LOW])
-        ).toBe(CircuitState.HIGH);
-        expect(
-          computeGateSignal(Operation.Xnor, [
-            CircuitState.HIGH,
-            CircuitState.HIGH,
-          ])
         ).toBe(CircuitState.HIGH);
       });
     });

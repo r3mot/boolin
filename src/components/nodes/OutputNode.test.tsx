@@ -4,8 +4,8 @@ import { NodeType } from "@/types/enums";
 import OutputNode from "./OutputNode";
 import { mockNodes } from "@/../__mocks__/circuit.mock";
 
-vi.mock("../handles/OutputHandle", () => ({
-  OutputHandle: vi.fn(() => <div data-testid="output-handle" />),
+vi.mock("../handles/InputHandle", () => ({
+  InputHandle: vi.fn(() => <div data-testid="input-handle" />),
 }));
 
 describe("OutputNode Component", () => {
@@ -65,7 +65,7 @@ describe("OutputNode Component", () => {
     );
   });
 
-  it("renders the OutputHandle with correct props", () => {
+  it("renders the InputHandle with correct props", () => {
     render(
       <OutputNode
         id="1"
@@ -83,8 +83,8 @@ describe("OutputNode Component", () => {
       />
     );
 
-    const handle = screen.getByTestId("output-handle");
+    const handle = screen.getByTestId("input-handle");
     expect(handle).toBeInTheDocument();
-    expect(handle).toHaveAttribute("data-testid", "output-handle");
+    expect(handle).toHaveAttribute("data-testid", "input-handle");
   });
 });
