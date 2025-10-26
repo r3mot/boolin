@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useCircuitStore } from "@/state/stores/circuit.store";
 import { CircuitNode } from "@/types/types";
 import { useShallow } from "zustand/react/shallow";
-import { Operation } from "@/types/enums";
+import { CircuitState, Operation } from "@/types/enums";
 
 export function useNodeOption() {
   const { generateId, replaceNode, removeNode, nodes, edges } = useCircuitStore(
@@ -31,6 +31,8 @@ export function useNodeOption() {
       const target = nodes.find((n) => n.id === nodeId);
       if (!target) return;
 
+      const isSource = next.data?.operation === "source";
+
       const newNode: CircuitNode = {
         ...target,
         ...next,
@@ -38,6 +40,7 @@ export function useNodeOption() {
         data: {
           ...target.data,
           ...next.data,
+          state: isSource ? CircuitState.LOW : target.data.state,
           operation: next.data?.operation ?? target.data.operation,
         },
         position: target.position,
