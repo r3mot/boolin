@@ -8,6 +8,7 @@ export type CircuitState = (typeof CircuitState)[keyof typeof CircuitState];
 export const NodeType = {
   Input: "input",
   Output: "output",
+  Source: "source",
   Gate: "gate",
 } as const;
 
@@ -16,6 +17,7 @@ export type NodeType = (typeof NodeType)[keyof typeof NodeType];
 export const Operation = {
   ConstantLow: "constant-low",
   ConstantHigh: "constant-high",
+  Source: "source",
   Output: "output",
   Not: "not",
   And: "and",
@@ -30,6 +32,7 @@ export type Operation = (typeof Operation)[keyof typeof Operation];
 export const GateMetadata = {
   [Operation.ConstantLow]: { inputs: 0, outputs: 1 },
   [Operation.ConstantHigh]: { inputs: 0, outputs: 1 },
+  [Operation.Source]: { inputs: 0, outputs: 1 },
   [Operation.Output]: { inputs: 1, outputs: 0 },
   [Operation.Not]: { inputs: 1, outputs: 1 },
   [Operation.And]: { inputs: 2, outputs: 1 },

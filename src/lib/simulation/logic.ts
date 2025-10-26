@@ -72,6 +72,10 @@ export function computeGateSignal(
       return CircuitState.LOW;
     case Operation.ConstantHigh:
       return CircuitState.HIGH;
+    case Operation.Source:
+      return inputs[0] === CircuitState.HIGH
+        ? CircuitState.LOW
+        : CircuitState.HIGH;
     case Operation.Output:
       return inputs[0] ?? CircuitState.LOW;
     case Operation.And:

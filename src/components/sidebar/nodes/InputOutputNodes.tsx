@@ -23,6 +23,15 @@ const ioNodes: DraggableNodeType[] = [
     },
   },
   {
+    name: "Source",
+    node: {
+      type: NodeType.Source,
+      operation: Operation.Source,
+      state: CircuitState.LOW,
+      originalState: CircuitState.LOW,
+    },
+  },
+  {
     name: "Output",
     node: {
       type: NodeType.Output,

@@ -204,6 +204,28 @@ export function OutputIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+export function SwitchIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M2 12h5" />
+      <rect x="7" y="9" width="10" height="6" rx="3" />
+      <circle cx="11" cy="12" r="2" />
+      <path d="M17 12h5" />
+    </svg>
+  );
+}
+
 export function Icon({
   name,
   ...props
@@ -218,6 +240,7 @@ export function Icon({
     constanthigh: OneIcon,
     constantlow: ZeroIcon,
     output: OutputIcon,
+    source: SwitchIcon,
   };
 
   const usableName = name.toLowerCase().replace(/[\s-]/g, "");
