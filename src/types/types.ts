@@ -10,7 +10,8 @@ export type CircuitNodeInternals = {
 export type InputNode = Node<CircuitNodeInternals, typeof NodeType.Input>;
 export type OutputNode = Node<CircuitNodeInternals, typeof NodeType.Output>;
 export type GateNode = Node<CircuitNodeInternals, typeof NodeType.Gate>;
-export type CircuitNode = InputNode | OutputNode | GateNode;
+export type SourceNode = Node<CircuitNodeInternals, typeof NodeType.Source>;
+export type CircuitNode = InputNode | OutputNode | GateNode | SourceNode;
 
 export type DraggableNodeValue = CircuitNodeInternals & { type: NodeType };
 export type DraggableNodeType = {
