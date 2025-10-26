@@ -18,10 +18,12 @@ import GateNode from "./nodes/GateNode";
 import { Connection } from "./handles/Connection";
 import { usePreferenceStore } from "@/state/stores/preference.store";
 import { NodeInfoPanel } from "./panels/NodeInfoPanel";
+import SourceInputNode from "./nodes/SourceNode";
 
 const nodeTypes: NodeTypes = {
   input: InputNode,
   output: OutputNode,
+  source: SourceInputNode,
   gate: GateNode,
 };
 
