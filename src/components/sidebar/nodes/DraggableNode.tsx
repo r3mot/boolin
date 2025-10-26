@@ -32,15 +32,17 @@ export const DraggableNode = memo(function ({
     }
 
     return (
-      <img
-        src={src || "/placeholder.svg"}
-        alt={name}
-        className={cn("object-contain")}
-        style={{ width: size, height: size }}
-        draggable={false}
-        width={size}
-        height={size}
-      />
+      <div className="h-9 w-full flex items-center justify-center">
+        <img
+          src={src || "/placeholder.svg"}
+          alt={name}
+          className={cn("object-contain")}
+          style={{ width: size, height: size }}
+          draggable={false}
+          width={size}
+          height={size}
+        />
+      </div>
     );
   }, [name, node.operation, node.state]);
 
