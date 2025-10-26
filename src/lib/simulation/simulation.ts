@@ -6,6 +6,7 @@ import { computeGateSignal } from "./logic";
 export const MAX_INPUTS: Record<Operation, number> = {
   [Operation.ConstantHigh]: 0,
   [Operation.ConstantLow]: 0,
+  [Operation.Source]: 0,
   [Operation.Output]: 1,
   [Operation.And]: 2,
   [Operation.Or]: 2,
@@ -36,12 +37,17 @@ export function simulateCircuit(
   for (const node of nodes) {
     if (
       node.data.operation === Operation.ConstantHigh ||
-      node.data.operation === Operation.ConstantLow
+      node.data.operation === Operation.ConstantLow ||
+      node.data.operation === Operation.Source
     ) {
-      states[node.id] =
-        node.data.operation === Operation.ConstantHigh
-          ? CircuitState.HIGH
-          : CircuitState.LOW;
+      if (node.data.operation === Operation.Source) {
+        states[node.id] = node.data.state;
+      } else {
+        states[node.id] =
+          node.data.operation === Operation.ConstantHigh
+            ? CircuitState.HIGH
+            : CircuitState.LOW;
+      }
       queue.push(node.id);
     }
   }

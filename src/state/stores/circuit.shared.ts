@@ -16,7 +16,11 @@ import {
 import { StateCreator } from "zustand";
 
 function isStructuralChange(change: NodeChange<CircuitNode>) {
-  return change.type === "add" || change.type === "remove";
+  return (
+    change.type === "add" ||
+    change.type === "remove" ||
+    change.type === "replace"
+  );
 }
 export interface CircuitStoreState {
   nodes: CircuitNode[];
@@ -67,7 +71,7 @@ export const circuitStoreCreator: StateCreator<CircuitStoreState> = (
     set((state) => {
       const updates = updateCircuit(nodes, state.edges);
       return {
-        nodes,
+        nodes: updates?.nodes ?? nodes,
         edges: updates?.edges ?? state.edges,
       };
     }),
