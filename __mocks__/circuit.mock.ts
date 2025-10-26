@@ -11,6 +11,7 @@ export const enum MockNodeId {
   NotGateId = "node6",
   NandGateId = "node7",
   MalformedNodeId = "node8",
+  SourceNodeId = "node9",
 }
 
 export const mockNodes = {
@@ -33,6 +34,16 @@ export const mockNodes = {
       originalState: CircuitState.HIGH,
     },
     position: { x: 50, y: 0 },
+  },
+  source: {
+    id: MockNodeId.SourceNodeId,
+    type: NodeType.Source,
+    data: {
+      operation: Operation.Source,
+      state: CircuitState.LOW,
+      originalState: CircuitState.LOW,
+    },
+    position: { x: 100, y: 0 },
   },
   output: {
     id: MockNodeId.OutputNodeId,
