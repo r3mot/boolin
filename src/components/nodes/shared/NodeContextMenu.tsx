@@ -31,6 +31,7 @@ export function NodeContextMenu({
     const ioNodeTypes = new Set<Operation>([
       "constant-high",
       "constant-low",
+      "source",
       "output",
     ] as const);
 

@@ -16,10 +16,11 @@ export function useNodeOption() {
   );
 
   const getNodeRole = useCallback(
-    (type: Operation): "input" | "output" | "gate" => {
+    (type: Operation): "input" | "output" | "gate" | "source" => {
       if (type === Operation.ConstantHigh || type === Operation.ConstantLow)
         return "input";
       if (type === Operation.Output) return "output";
+      if (type === Operation.Source) return "source";
       return "gate";
     },
     []
