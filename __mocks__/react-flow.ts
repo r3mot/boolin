@@ -30,12 +30,12 @@ export const mockReactFlow = () => {
   if (init) return;
   init = true;
 
-  global.ResizeObserver = ResizeObserver;
+  globalThis.ResizeObserver = ResizeObserver;
 
   // @ts-expect-error - DOMMatrixReadOnly mock implementation doesn't match the full web API
-  global.DOMMatrixReadOnly = DOMMatrixReadOnly;
+  globalThis.DOMMatrixReadOnly = DOMMatrixReadOnly;
 
-  Object.defineProperties(global.HTMLElement.prototype, {
+  Object.defineProperties(globalThis.HTMLElement.prototype, {
     offsetHeight: {
       get() {
         return parseFloat(this.style.height) || 1;
@@ -48,7 +48,7 @@ export const mockReactFlow = () => {
     },
   });
 
-  (global.SVGElement as any).prototype.getBBox = () => ({
+  (globalThis.SVGElement as any).prototype.getBBox = () => ({
     x: 0,
     y: 0,
     width: 0,
