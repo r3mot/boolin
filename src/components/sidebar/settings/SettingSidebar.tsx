@@ -5,7 +5,7 @@ import { PreferencesSettings } from "./PreferenceSettings";
 
 export function SettingSidebar() {
   return (
-    <div className="flex-grow">
+    <div className="grow">
       <div className="space-y-6">
         <AppearanceSettings />
         <Separator />

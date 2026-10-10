@@ -68,7 +68,7 @@ const NodeStateInfo = ({ id, absPosition, data }: NodeStateInfoProps) => {
       }}
       className="text-xs"
     >
-      <pre className=" mt-4 whitespace-pre-wrap break-words bg-neutral-900 text-green-300 font-mono text-xs p-3 rounded-lg">
+      <pre className=" mt-4 whitespace-pre-wrap wrap-break-word bg-neutral-900 text-green-300 font-mono text-xs p-3 rounded-lg">
         {JSON.stringify(dataWithId, null, 2)}
       </pre>
     </div>
@@ -83,7 +83,7 @@ export const NodeInfoPanel = ({ position }: { position: PanelPosition }) => {
   }, []);
 
   return (
-    <Panel position={position} className="rounded border bg-card p-1 shadow-sm">
+    <Panel position={position} className="rounded border bg-card p-1 shadow-xs">
       <div className="p-2 bg-card text-card-foreground">
         <div className="flex items-center justify-center gap-4">
           <strong className="text-sm">Node State Viewer</strong>

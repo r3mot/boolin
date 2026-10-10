@@ -20,7 +20,7 @@ export function NodeContainer({
       <div
         {...props}
         className={cn(
-          "relative px-8 py-4 rounded-md bg-background dark:bg-neutral-100 shadow-sm border-muted-foreground border ",
+          "relative px-8 py-4 rounded-md bg-background dark:bg-neutral-100 shadow-xs border-muted-foreground border ",
           className
         )}
       >

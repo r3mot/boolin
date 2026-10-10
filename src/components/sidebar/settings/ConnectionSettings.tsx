@@ -105,7 +105,7 @@ function StrokeSettings() {
           value={[strokeWidth]}
           onValueChange={handleChange}
           aria-labelledby="stroke-width-value"
-          className="flex-grow"
+          className="grow"
         />
         <span
           className="text-xs text-muted-foreground w-8 text-right"
