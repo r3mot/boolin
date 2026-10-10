@@ -53,7 +53,7 @@ export const DraggableNode = memo(function ({
         className={cn(
           "p-4 text-center bg-muted flex items-center justify-center",
           "flex-col gap-2 rounded-md cursor-move",
-          "hover:bg-muted/80 hover:shadow-sm transition-all duration-200 ease-in-out"
+          "hover:bg-muted/80 hover:shadow-xs transition-all duration-200 ease-in-out"
         )}
         onDragStart={(e) => onDragStart(e, node)}
         draggable
